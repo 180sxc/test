@@ -1,4 +1,4 @@
-import { modules } from "/modules/modules.js";
+import { modules } from "./modules/modules.js";
 export class Render {
   constructor(canvas, ctx, delta, camx, camy, xof, yof) {
     this.canvas = canvas;
