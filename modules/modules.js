@@ -35,5 +35,17 @@ var modules = {
       }
     };
   },
+  setTickloop: function(fn, time) {// idea from https://jesselawson.dev/posts/a-setinterval-alternative/
+    let timeout = null,
+    next = Date.now() + time,
+    container = () => {
+      next += time
+      timeout = setTimeout(container, next - Date.now());
+      return fn();
+    }
+    timeout = setTimeout(container, next - Date.now());
+    const cancel = () => clearTimeout(timeout)
+    return { cancel }
+  },
 };
 export { modules };
