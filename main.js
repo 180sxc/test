@@ -4,9 +4,9 @@ main js -> main storyline runners
 -  state detection / event execution 
 -  kept simple & easy for this
 */
-import { byID, byCN, qsa, qs } from "/tools/dom.js";
-import { canvas, ls } from "/tools/dom.js";
-import { Render } from "/render.js";
+import { byID, byCN, qsa, qs } from "./tools/dom.js";
+import { canvas, ls } from "./tools/dom.js";
+import { Render } from "./render.js";
 import { modules } from "./modules/modules.js";
 import { mapData } from "./assets/map-data.js";
 
