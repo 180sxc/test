@@ -77,7 +77,7 @@ class Player {
   getTexture(name) {
     if (!textureCache[name]) {
       const img = new Image();
-      img.src = "assets/textures/" + name;
+      img.src = "./assets/textures/" + name;
       textureCache[name] = {
         img,
         loaded: false
