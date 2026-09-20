@@ -8,8 +8,8 @@ var mathATAN2 = Math.atan2;
 var mathPI = Math.PI;
 var modules = {
   mapScale: 10000,
-  maxScreenHeight: 1080,
-  maxScreenWidth: 1920,
+  maxScreenHeight: 1080,//1080
+  maxScreenWidth: 1020,//1920
   fixTo: function (n, v) {
     return parseFloat(n.toFixed(v));
   },
@@ -18,6 +18,9 @@ var modules = {
   },
   getDirection: function (x1, y1, x2, y2) {
     return mathATAN2(y1 - y2, x1 - x2);
+  },
+  getCenter: function(x1, y1, x2, y2){
+    return [(x1 + x2) / 2, (y1 + y2) / 2];
   },
   eventIsTrusted: function (event) {
     if (event && typeof event.isTrusted == "boolean") {
@@ -47,6 +50,28 @@ var modules = {
     const cancel = () => clearTimeout(timeout)
     return { cancel }
   },
+  convexHull: function(points) { //convex hull algorithm https://en.wikipedia.org/wiki/Convex_hull
+    points = [...points].sort((a,b) => a.x-b.x || a.y-b.y)
+    const cross = (o, a, b) => (a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x)
+    let lower = []
+    for(let p of points) {
+      while(lower.length >= 2 &&
+        cross(lower[lower.length-2],lower[lower.length-1], p) <= 0)
+        lower.pop()
+      lower.push(p)
+    }
+    let upper = []
+    for(let i = points.length-1; i>=0;i--){
+      let p = points[i]
+      while(upper.length >= 2 &&
+        cross(upper[upper.length-2],upper[upper.length-1], p) <= 0)
+        upper.pop()
+      upper.push(p)
+    }
+    upper.pop();
+    lower.pop();
+
+    return lower.concat(upper)
+  },
 };
 export { modules };
-//recommit
